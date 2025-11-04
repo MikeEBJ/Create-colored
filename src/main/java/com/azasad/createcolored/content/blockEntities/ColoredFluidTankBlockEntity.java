@@ -21,8 +21,10 @@ public class ColoredFluidTankBlockEntity extends FluidTankBlockEntity implements
             return;
         if (!isController())
             return;
+        //super.updateConnectivity();
         ColoredConnectivityHandler.formMulti(this);
     }
+
 
     @Override
     public boolean canConnectWith(BlockPos otherPos, BlockView level) {

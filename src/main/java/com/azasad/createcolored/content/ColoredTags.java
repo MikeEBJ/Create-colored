@@ -1,7 +1,7 @@
 package com.azasad.createcolored.content;
 
 import com.azasad.createcolored.CreateColored;
-import com.simibubi.create.foundation.utility.Lang;
+import net.createmod.catnip.lang.Lang;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

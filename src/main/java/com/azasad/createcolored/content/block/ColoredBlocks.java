@@ -8,13 +8,11 @@ import com.azasad.createcolored.content.item.ColoredFluidTankItem;
 import com.azasad.createcolored.content.models.ColoredFluidTankModel;
 import com.azasad.createcolored.content.models.ColoredPipeAttachmentModel;
 import com.azasad.createcolored.datagen.ColoredBlockStateGen;
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllSpriteShifts;
-import com.simibubi.create.Create;
+import com.simibubi.create.*;
 import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
 import com.simibubi.create.content.decoration.encasing.EncasingRegistry;
 import com.simibubi.create.content.fluids.pipes.EncasedPipeBlock;
-import com.simibubi.create.content.redstone.displayLink.source.BoilerDisplaySource;
+import com.simibubi.create.content.fluids.tank.FluidTankMovementBehavior;
 import com.simibubi.create.foundation.block.DyedBlockList;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
@@ -26,10 +24,11 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 
-import static com.simibubi.create.content.redstone.displayLink.AllDisplayBehaviours.assignDataBehaviour;
+import static com.simibubi.create.api.behaviour.display.DisplaySource.displaySource;
+import static com.simibubi.create.api.behaviour.movement.MovementBehaviour.movementBehaviour;
+import static com.simibubi.create.api.contraption.storage.fluid.MountedFluidStorageType.mountedFluidStorage;
 import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 
@@ -44,10 +43,11 @@ public class ColoredBlocks {
                .transform(pickaxeOnly())
                .blockstate(ColoredBlockStateGen.coloredTank(dyecolor))
                .onRegister(ColoredRegistrate.coloredBlockModel(() -> ColoredFluidTankModel::standard, dyecolor))
-               .onRegister(assignDataBehaviour(new BoilerDisplaySource(), "boiler_status"))
+               .transform(displaySource(AllDisplaySources.BOILER))
+               .transform(mountedFluidStorage(AllMountedStorageTypes.FLUID_TANK))
+               .onRegister(movementBehaviour(new FluidTankMovementBehavior()))
                .addLayer(() -> RenderLayer::getCutoutMipped)
                .item(ColoredFluidTankItem::new)
-//               .lang(colorName + " Fluid Tank")
                .model((c,p) -> {
                    p.withExistingParent(c.getName(), Create.asResource("item/fluid_tank"))
                            .texture("0", p.modLoc("block/fluid_tank_top/" + colorName))

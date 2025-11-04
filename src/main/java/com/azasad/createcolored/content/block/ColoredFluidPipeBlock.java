@@ -1,6 +1,5 @@
 package com.azasad.createcolored.content.block;
 
-import com.azasad.createcolored.CreateColored;
 import com.azasad.createcolored.content.blockEntities.ColoredBlockEntities;
 import com.simibubi.create.content.decoration.bracket.BracketedBlockEntityBehaviour;
 import com.simibubi.create.content.fluids.FluidPropagator;
@@ -8,8 +7,8 @@ import com.simibubi.create.content.fluids.FluidTransportBehaviour;
 import com.simibubi.create.content.fluids.pipes.*;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.utility.Iterate;
 import io.github.fabricators_of_create.porting_lib.util.TagUtil;
+import net.createmod.catnip.data.Iterate;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;

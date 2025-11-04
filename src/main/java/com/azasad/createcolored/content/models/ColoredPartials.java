@@ -1,10 +1,10 @@
 package com.azasad.createcolored.content.models;
 
 import com.azasad.createcolored.CreateColored;
-import com.jozufozu.flywheel.core.PartialModel;
 import com.simibubi.create.content.fluids.FluidTransportBehaviour;
-import com.simibubi.create.foundation.utility.Iterate;
-import com.simibubi.create.foundation.utility.Lang;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import net.createmod.catnip.data.Iterate;
+import net.createmod.catnip.lang.Lang;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
@@ -45,7 +45,7 @@ public class ColoredPartials {
     }
 
     private static PartialModel block(String path) {
-        return new PartialModel(new Identifier(CreateColored.MOD_ID, "block/" + path));
+        return PartialModel.of(new Identifier(CreateColored.MOD_ID, "block/" + path));
     }
 
     public static void initialize() {

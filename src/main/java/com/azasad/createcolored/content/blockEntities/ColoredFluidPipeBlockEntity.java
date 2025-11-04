@@ -7,6 +7,7 @@ import com.simibubi.create.content.fluids.FluidPropagator;
 import com.simibubi.create.content.fluids.FluidTransportBehaviour;
 import com.simibubi.create.content.fluids.pipes.EncasedPipeBlock;
 import com.simibubi.create.content.fluids.pipes.FluidPipeBlockEntity;
+import com.simibubi.create.content.fluids.pipes.GlassFluidPipeBlock;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.block.BlockState;
@@ -55,18 +56,33 @@ public class ColoredFluidPipeBlockEntity extends FluidPipeBlockEntity {
             if (state.getBlock() instanceof EncasedPipeBlock && attachment != AttachmentTypes.DRAIN)
                 return AttachmentTypes.NONE;
 
-            if (attachment == AttachmentTypes.RIM && !ColoredFluidPipeBlock.isColoredPipe(otherState) &&
-                    !AllBlocks.MECHANICAL_PUMP.has(otherState) && !AllBlocks.ENCASED_FLUID_PIPE.has(otherState)) {
-                FluidTransportBehaviour pipeBehaviour = BlockEntityBehaviour.get(world, offsetPos, FluidTransportBehaviour.TYPE);
-                if (pipeBehaviour != null)
-                    if (pipeBehaviour.canHaveFlowToward(otherState, direction.getOpposite()))
-                        return AttachmentTypes.CONNECTION;
+            if (attachment == AttachmentTypes.RIM
+                    && !ColoredFluidPipeBlock.isColoredPipe(otherState)
+                    && !AllBlocks.MECHANICAL_PUMP.has(otherState)
+                    && !AllBlocks.ENCASED_FLUID_PIPE.has(otherState)) {
+
+                if (!ColoredFluidPipeBlock.isPipe(otherState)
+                        && !(otherState.getBlock() instanceof EncasedPipeBlock)
+                        && !(otherState.getBlock() instanceof GlassFluidPipeBlock)) {
+
+                    FluidTransportBehaviour pipeBehaviour =
+                            BlockEntityBehaviour.get(world, offsetPos, FluidTransportBehaviour.TYPE);
+
+                    if (pipeBehaviour != null
+                            && pipeBehaviour.canHaveFlowToward(otherState, direction.getOpposite()))
+                        return AttachmentTypes.DETAILED_CONNECTION;
+                }
             }
 
-            if (attachment == AttachmentTypes.RIM && !ColoredFluidPipeBlock.shouldDrawRim(world, pos, state, direction))
-                return AttachmentTypes.CONNECTION;
-            if (attachment == AttachmentTypes.NONE && state.get(ColoredFluidPipeBlock.FACING_PROPERTIES.get(direction)))
-                return AttachmentTypes.CONNECTION;
+            if (attachment == AttachmentTypes.RIM
+                    && !ColoredFluidPipeBlock.shouldDrawRim(world, pos, state, direction))
+                return FluidPropagator.getStraightPipeAxis(state) == direction.getAxis()
+                        ? AttachmentTypes.CONNECTION
+                        : AttachmentTypes.DETAILED_CONNECTION;
+
+            if (attachment == AttachmentTypes.NONE
+                    && state.get(ColoredFluidPipeBlock.FACING_PROPERTIES.get(direction)))
+                return AttachmentTypes.DETAILED_CONNECTION;
 
             return attachment;
         }

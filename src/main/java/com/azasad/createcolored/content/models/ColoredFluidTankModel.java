@@ -1,15 +1,10 @@
 package com.azasad.createcolored.content.models;
 
-import com.azasad.createcolored.ColoredHelpers;
-import com.azasad.createcolored.content.blockEntities.ColoredFluidTankBlockEntity;
-import com.simibubi.create.AllSpriteShifts;
 import com.simibubi.create.api.connectivity.ConnectivityHandler;
 import com.simibubi.create.content.fluids.tank.FluidTankCTBehaviour;
-import com.simibubi.create.content.fluids.tank.FluidTankModel;
 import com.simibubi.create.foundation.block.connected.CTModel;
 import com.simibubi.create.foundation.block.connected.CTSpriteShiftEntry;
-import com.simibubi.create.foundation.block.connected.ConnectedTextureBehaviour;
-import com.simibubi.create.foundation.utility.Iterate;
+import net.createmod.catnip.data.Iterate;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.model.BakedModel;
