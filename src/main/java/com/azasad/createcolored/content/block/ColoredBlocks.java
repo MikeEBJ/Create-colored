@@ -43,8 +43,10 @@ public class ColoredBlocks {
                .transform(pickaxeOnly())
                .blockstate(ColoredBlockStateGen.coloredTank(dyecolor))
                .onRegister(ColoredRegistrate.coloredBlockModel(() -> ColoredFluidTankModel::standard, dyecolor))
-               .transform(displaySource(AllDisplaySources.BOILER))
-               .transform(mountedFluidStorage(AllMountedStorageTypes.FLUID_TANK))
+               // TODO: Seems to crash randomly if this registers before create - this is how normal create uses it though
+               // Caused by: java.lang.NullPointerException: Registry entry not present: create:boiler
+               //.transform(displaySource(AllDisplaySources.BOILER))
+               //.transform(mountedFluidStorage(AllMountedStorageTypes.FLUID_TANK))
                .onRegister(movementBehaviour(new FluidTankMovementBehavior()))
                .addLayer(() -> RenderLayer::getCutoutMipped)
                .item(ColoredFluidTankItem::new)
