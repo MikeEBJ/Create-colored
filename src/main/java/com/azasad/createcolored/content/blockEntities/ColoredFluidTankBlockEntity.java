@@ -21,7 +21,6 @@ public class ColoredFluidTankBlockEntity extends FluidTankBlockEntity implements
             return;
         if (!isController())
             return;
-        //super.updateConnectivity();
         ColoredConnectivityHandler.formMulti(this);
     }
 
