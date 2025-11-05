@@ -42,11 +42,10 @@ public class ColoredBlocks {
                .blockstate(ColoredBlockStateGen.coloredTank(dyecolor))
                .onRegister(ColoredRegistrate.coloredBlockModel(() -> ColoredFluidTankModel::standard, dyecolor))
                .addLayer(() -> RenderLayer::getCutoutMipped)
-
-               // TODO: After looking into it, the creative tank is a subclass of the main one, and only does this
-               // Still seems to crash with it randomly
+               // Unsure if this is needed, all the other tanks do it but seems to cause no issues without
+               // With it, it causes a registration race and if this goes before it crashes, at least I believe.
+               //.transform(displaySource(AllDisplaySources.BOILER))
                //.transform(mountedFluidStorage(AllMountedStorageTypes.FLUID_TANK))
-
                .item(ColoredFluidTankItem::new)
                .model((c,p) -> {
                    p.withExistingParent(c.getName(), Create.asResource("item/fluid_tank"))

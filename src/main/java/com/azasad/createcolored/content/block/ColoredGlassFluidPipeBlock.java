@@ -57,7 +57,7 @@ public class ColoredGlassFluidPipeBlock extends GlassFluidPipeBlock implements I
         BlockState blockState = world.getBlockState(pos);
         if (bracket.isPresent()) {
             PlayerEntity player = context.getPlayer();
-            if (!world.isClient && !player.isCreative())
+            if (!world.isClient && player != null && !player.isCreative())
                 player.getInventory().offerOrDrop(bracket.get());
             if (!world.isClient && ColoredBlocks.DYED_PIPES.get(color).has(blockState)) {
                 Direction.Axis preferred = FluidPropagator.getStraightPipeAxis(blockState);
