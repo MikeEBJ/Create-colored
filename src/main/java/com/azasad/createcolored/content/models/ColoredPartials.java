@@ -15,15 +15,23 @@ import java.util.Map;
 
 public class ColoredPartials {
 
-    //Create casings map
+    // Create casings map
     public static final Map<DyeColor, PartialModel> COLORED_FLUID_PIPE_CASINGS = new EnumMap<>(DyeColor.class);
-    //Create attachment map
+    // Create attachment map
     public static final Map<FluidTransportBehaviour.AttachmentTypes.ComponentPartials, Map<DyeColor, Map<String, PartialModel>>> COLORED_PIPE_ATTACHMENTS = new EnumMap<>(
             FluidTransportBehaviour.AttachmentTypes.ComponentPartials.class);
+    // Create boiler gauge map
+    public static final Map<DyeColor, PartialModel> COLORED_GAUGES = new EnumMap<>(DyeColor.class);
 
     static {
         for (DyeColor color : DyeColor.values()) {
             COLORED_FLUID_PIPE_CASINGS.put(color, block("colored_fluid_pipe/" + color.getName() + "_fluid_pipe/casing"));
+        }
+    }
+
+    static {
+        for (DyeColor color : DyeColor.values()) {
+            COLORED_GAUGES.put(color, block("steam_engine/" + color.getName() + "_gauge"));
         }
     }
 

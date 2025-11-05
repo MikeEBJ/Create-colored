@@ -23,6 +23,10 @@ public class ColoredFluidTankBlock extends FluidTankBlock {
         return (state.getBlock() instanceof ColoredFluidTankBlock);
     }
 
+    public DyeColor getColor() {
+        return this.color;
+    }
+
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.hasBlockEntity() && (state.getBlock() != newState.getBlock() || !newState.hasBlockEntity())) {
