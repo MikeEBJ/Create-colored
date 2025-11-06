@@ -30,8 +30,9 @@ public class ColoredPartials {
     }
 
     static {
-        for (DyeColor color : DyeColor.values()) {
-            COLORED_GAUGES.put(color, block("steam_engine/" + color.getName() + "_gauge"));
+        for (DyeColor dye : DyeColor.values()) {
+            Identifier id = new Identifier("create-colored", "block/colored_gauge/" + dye.getName());
+            COLORED_GAUGES.put(dye, PartialModel.of(id));
         }
     }
 
